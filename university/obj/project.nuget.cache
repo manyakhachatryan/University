@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D66P/646prrO6NtZuClww0Ee12AmjTlwQlBlhs7sl2To4TKWcAREekiwjXBTKTn+O9TBCN0zGZ6RwxyctxDimg==",
+  "dgSpecHash": "UoNg3zAgBONm8o82gw2wi7Wu/2AFM38/mb6tyrcoQ5/epWRRJGI4rE3cBgH90dWRiuPJ83tx0AChacCFxLSa1Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Innoverse User\\Desktop\\test\\university\\university\\university.csproj",
+  "projectFilePath": "C:\\Users\\Innoverse User\\Desktop\\university\\university\\university.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Innoverse User\\.nuget\\packages\\andotnet.mariadb\\6.0.0\\andotnet.mariadb.6.0.0.nupkg.sha512",
     "C:\\Users\\Innoverse User\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",

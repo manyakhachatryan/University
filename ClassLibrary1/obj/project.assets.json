@@ -793,11 +793,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Innoverse User\\Desktop\\test\\university\\ClassLibrary1\\BusinessLayer.csproj",
+      "projectUniqueName": "C:\\Users\\Innoverse User\\Desktop\\university\\ClassLibrary1\\BusinessLayer.csproj",
       "projectName": "BusinessLayer",
-      "projectPath": "C:\\Users\\Innoverse User\\Desktop\\test\\university\\ClassLibrary1\\BusinessLayer.csproj",
+      "projectPath": "C:\\Users\\Innoverse User\\Desktop\\university\\ClassLibrary1\\BusinessLayer.csproj",
       "packagesPath": "C:\\Users\\Innoverse User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Innoverse User\\Desktop\\test\\university\\ClassLibrary1\\obj\\",
+      "outputPath": "C:\\Users\\Innoverse User\\Desktop\\university\\ClassLibrary1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

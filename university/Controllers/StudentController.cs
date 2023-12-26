@@ -2,11 +2,7 @@
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using BusinessLayer.Entities;
-using Newtonsoft.Json;
 using university.Models.Requests.StudentsReq;
-using System.Collections.Generic;
-using System.Globalization;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace university.Controllers
 {
@@ -14,107 +10,139 @@ namespace university.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        /*   // GET: api/<StudentController>
-           [HttpGet]*/
-        /*  public List<Student> Get(int? id = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
-          {
-              Console.WriteLine("[{0}]", StudentFirstName);
-              string connStr = Config.ConnectionString;
-              List<Student> students = new List<Student>();
-              MySqlConnection conn = new MySqlConnection(connStr);
-              try
-              {
-                  Console.WriteLine("Connecting to MySQL...");
-                  conn.Open();
-                  DbCommand cmd = conn.CreateCommand();
-                  cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                  cmd.CommandText = "get_student";
-                  MySqlParameter par = new MySqlParameter
-                  {
-                      ParameterName = "id",
-                      Value = id,
-                  };
-                  cmd.Parameters.Add(par);
 
-                 MySqlParameter par1 = new MySqlParameter
-                 {
-                      ParameterName = "StudentFirstName",
-                      Value = StudentFirstName,
-                 };
-                  cmd.Parameters.Add(par1);
-
-                  MySqlParameter par2 = new MySqlParameter
-                  {
-                      ParameterName = "StudentLastName",
-                      Value = StudentLastName,
-                  };
-                  cmd.Parameters.Add(par2);
-
-                  MySqlParameter par3 = new MySqlParameter
-                  {
-                      ParameterName = "StudentUniversityID",
-                      Value = StudentUniversityID,
-                  };
-                  cmd.Parameters.Add(par3);
-
-
-                  *//*  MySqlParameter par2 = new MySqlParameter
-                   {
-
-                       ParameterName = "lastname",
-                       Value = lastName,
-                   };
-                   cmd.Parameters.Add(par2);
-                   MySqlParameter par3 = new MySqlParameter
-                   {
-
-                       ParameterName = "uid",
-                       Value = universityId,
-                   };
-                   cmd.Parameters.Add(par3);*//*
-
-                  using (DbDataReader reader = cmd.ExecuteReader())
-                  {
-                      while (reader.Read())
-                      {
-                          Student student = new Student();
-                          student.StudentID = Convert.ToInt32(reader[0]);
-                          student.StudentFirstName = Convert.ToString(reader[1]);
-                          student.StudentLastName = Convert.ToString(reader[2]);
-                          student.StudentUniversityID = Convert.ToInt32(reader[3]);
-                          students.Add(student);
-
-
-                      }
-
-                  }
-              }
-              catch (Exception ex)
-              {
-                  Console.WriteLine(ex.ToString());
-              }
-              conn.Close();
-              return students;
-          }*/
-
-
-        // GET: api/<StudentController>
         [HttpPost]
-        public async Task<Student> Add([FromBody] AddStudentReqM model)
+        public async Task<IActionResult> Add([FromBody] AddStudentReqM model)
         {
-            Student student = await new  Student()
+            Student student = await new Student()
             {
                 StudentID = model.StudentID,
                 StudentFirstName = model.StudentFirstName,
                 StudentLastName = model.StudentLastName,
                 StudentUniversityID = model.StudentUniversityID,
             }.AddAsync();
-            return student;
+
+            if (student.StudentID == null)
+            {
+                return BadRequest("Duplicate ID");
+            }
+
+            return Ok(student);
         }
 
+        // GET: api/<StudentController>
+        [HttpGet]
+        public async Task<IActionResult> Get(int? StudentID = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
+        {
+            List<Student> students = await new Student().GetListAsync(StudentID, StudentFirstName, StudentLastName, StudentUniversityID);
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete()]
+            if(students.Count==0)
+            {
+                return NotFound();
+            }
+
+            return Ok(students);
+        }
+
+    }
+}
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+
+/*   // GET: api/<StudentController>
+   [HttpGet]*/
+/*  public List<Student> Get(int? id = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
+  {
+      Console.WriteLine("[{0}]", StudentFirstName);
+      string connStr = Config.ConnectionString;
+      List<Student> students = new List<Student>();
+      MySqlConnection conn = new MySqlConnection(connStr);
+      try
+      {
+          Console.WriteLine("Connecting to MySQL...");
+          conn.Open();
+          DbCommand cmd = conn.CreateCommand();
+          cmd.CommandType = System.Data.CommandType.StoredProcedure;
+          cmd.CommandText = "get_student";
+          MySqlParameter par = new MySqlParameter
+          {
+              ParameterName = "id",
+              Value = id,
+          };
+          cmd.Parameters.Add(par);
+
+         MySqlParameter par1 = new MySqlParameter
+         {
+              ParameterName = "StudentFirstName",
+              Value = StudentFirstName,
+         };
+          cmd.Parameters.Add(par1);
+
+          MySqlParameter par2 = new MySqlParameter
+          {
+              ParameterName = "StudentLastName",
+              Value = StudentLastName,
+          };
+          cmd.Parameters.Add(par2);
+
+          MySqlParameter par3 = new MySqlParameter
+          {
+              ParameterName = "StudentUniversityID",
+              Value = StudentUniversityID,
+          };
+          cmd.Parameters.Add(par3);
+
+
+          *//*  MySqlParameter par2 = new MySqlParameter
+           {
+
+               ParameterName = "lastname",
+               Value = lastName,
+           };
+           cmd.Parameters.Add(par2);
+           MySqlParameter par3 = new MySqlParameter
+           {
+
+               ParameterName = "uid",
+               Value = universityId,
+           };
+           cmd.Parameters.Add(par3);*//*
+
+          using (DbDataReader reader = cmd.ExecuteReader())
+          {
+              while (reader.Read())
+              {
+                  Student student = new Student();
+                  student.StudentID = Convert.ToInt32(reader[0]);
+                  student.StudentFirstName = Convert.ToString(reader[1]);
+                  student.StudentLastName = Convert.ToString(reader[2]);
+                  student.StudentUniversityID = Convert.ToInt32(reader[3]);
+                  students.Add(student);
+
+
+              }
+
+          }
+      }
+      catch (Exception ex)
+      {
+          Console.WriteLine(ex.ToString());
+      }
+      conn.Close();
+      return students;
+  }*/
+
+
+// GET: api/<StudentController>
+
+
+// DELETE api/<ValuesController>/5
+/*        [HttpDelete()]
         public void Delete(int id)
         {
             string connStr = Config.ConnectionString;
@@ -133,18 +161,9 @@ namespace university.Controllers
             }
             conn.Close();
 
-        }
+        }*/
 
 
-           // GET: api/<StudentController>
-         [HttpGet]
-         public async Task<List<Student>> Get(int? StudentID = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
-          {
-            List<Student> students = await Student.GetListAsync(StudentID, StudentFirstName, StudentLastName, StudentUniversityID);
-
-            return students;
-
-        }
 
 /*
         [HttpPost]
@@ -199,7 +218,7 @@ namespace university.Controllers
         }
 */
 
-
+/*
         [HttpPatch]
         public void Update([FromBody] UpdateStudentReqM model)
         {
@@ -250,8 +269,6 @@ namespace university.Controllers
                 Console.WriteLine(ex.ToString());
             }
             conn.Close();
-        }
+        }*/
 
 
-    }
-}

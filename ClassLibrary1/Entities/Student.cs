@@ -50,7 +50,7 @@ namespace BusinessLayer.Entities
         }
 
 
-        public static async Task<List<Student>> GetListAsync(int? StudentID = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
+        public  async Task<List<Student>> GetListAsync(int? StudentID = null, string? StudentFirstName = null, string? StudentLastName = null, int? StudentUniversityID = null)
         {
             try
             {
@@ -63,8 +63,6 @@ namespace BusinessLayer.Entities
                 };
                 List<Student> list = new List<Student>();
                 
-                //= await MySQLDataAccess<Student>.ExecuteSPListAsync("get_student", par);
-
                 (list, RowCount) = await MySQLDataAccess<Student>.ExecuteSPListByPagingAsync("get_student", par);
                 return list;
             }
